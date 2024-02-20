@@ -6,6 +6,8 @@ import SpriteKit
 
 struct ContentView: View {
     
+    @State private var sceneKey = UUID() // Used to force-recreate the SpriteView
+    
     @State public var isGameOver = false {
         didSet{
             restartScene()
@@ -47,6 +49,7 @@ struct ContentView: View {
         ZStack {
             if(!gameScene.isGameOver){
                 SpriteView(scene: gameScene)
+                    .id(sceneKey) // Change the ID to recreate the view
                     .ignoresSafeArea()
             } else {
                 MyARViewRepresentable()
@@ -78,6 +81,11 @@ struct ContentView: View {
                             }
                         }
                     }.padding()
+                } .onChange(of: isGameOver) { _ in
+                    if isGameOver {
+                        // Reset or change the game scene when the game is over
+                        self.sceneKey = UUID() // Change the key to force-recreate the SpriteView
+                    }
                 }
                 
             }

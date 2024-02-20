@@ -3,18 +3,8 @@ import GameplayKit
 import SwiftUI
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
-   //@ObservedObject var viewModel: SharedViewModel
-    /*weak var gameViewController: GameViewController?
-    func presentSwiftUIView() {
-        DispatchQueue.main.async {
-        }
-        let swiftUIView = ContentView(isGameOver: true)
-        let hostingController = UIHostingController(rootView: swiftUIView)
-        // Present the view controller
-        self.gameViewController?.present(hostingController, animated: true, completion: nil)
-    }
-     */
-    
+ 
+    weak var gameViewController: GameViewController?
     var entities = [GKEntity]()
     var graphs = [String : GKGraph]()
     
@@ -230,9 +220,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    func arView(){
-        
-    }
+    
     func transitionToARView() {
         guard let skView = self.view, let viewController = skView.window?.rootViewController else {
             print("Could not find the view controller.")
@@ -282,6 +270,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.lastUpdateTime = currentTime
     }
     
+
 
 }
 
