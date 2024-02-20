@@ -17,7 +17,12 @@ class MyARViewController: UIViewController {
         // Setup the rest of your AR scene here
     }
     
-  
+    func dismissViewController() {
+        // Perform any cleanup or additional actions here
+        
+        // Dismiss the view controller
+        self.dismiss(animated: true, completion: nil)
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)

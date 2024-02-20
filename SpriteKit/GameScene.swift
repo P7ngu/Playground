@@ -3,8 +3,6 @@ import GameplayKit
 import SwiftUI
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
- 
-    weak var gameViewController: GameViewController?
     var entities = [GKEntity]()
     var graphs = [String : GKGraph]()
     
@@ -217,9 +215,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             isGameOver = true
             print("AR Kit")
             transitionToARView()
+            gameScene = gameScene+1
+        } else if(gameScene == 9){
+            print("End of AR")
+             updateStoryLabel(newText: "Our world is suffering too. We have to do something!")
+             gameScene = gameScene+1
+        } else if(gameScene == 10){
+            
         }
     }
-    
     
     func transitionToARView() {
         guard let skView = self.view, let viewController = skView.window?.rootViewController else {
@@ -231,6 +235,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Present the AR view controller
         viewController.present(arViewController, animated: true, completion: nil)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+           arViewController.dismiss(animated: true, completion: nil)
+        }
     }
 
     func updateBackground(newBackground: String){
