@@ -7,7 +7,7 @@ class ARManager {
         
     }
     
-    var actionStream = PassthroughSubject<ArAction, Never>()
+    var actionStream = PassthroughSubject<ARAction, Never>()
     
 }
 

@@ -1,6 +1,6 @@
 import SwiftUI
 
-enum ArAction{
+enum ARAction{
     case placeBlock(color: Color)
     case removeAllAnchors
 }

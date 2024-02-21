@@ -1,5 +1,6 @@
 //An app about poems and the environment
 //Created by Matteo Perotta - 9 Feb 2024
+//This app needs to be displayed on landscape mode, I tried to force it but Playground didn't like it!
 
 import SwiftUI
 import SpriteKit
