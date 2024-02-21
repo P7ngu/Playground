@@ -1,7 +1,8 @@
 /*
  An app about poems and the environment
 
-This app needs to be displayed on landscape mode, I tried to force it but Playground didn't like it.
+This app needs to be displayed on landscape mode, I tried to force it but Playground didn't like it, _at all_.
+ 
  
  
  */
@@ -50,7 +51,7 @@ struct ContentView: View {
             } else {
                 MyARViewRepresentable()
                     .ignoresSafeArea()
-                    .overlay(alignment: .bottom) { }//To add some buttons if needed
+                    .overlay(alignment: .bottom) { } // To add some buttons if needed
                 ScrollView(.horizontal){
                     HStack{
                         Button{
@@ -72,7 +73,7 @@ struct ContentView: View {
                                 color
                                     .frame(width: 40, height: 40)
                                     .padding()
-                                    .background(.regularMaterial) //blurred effect
+                                    .background(.regularMaterial) // blurred effect
                                     .cornerRadius(16.0)
                             }
                         }

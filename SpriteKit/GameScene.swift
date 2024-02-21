@@ -27,6 +27,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setupInstructionLabel()
     }
     
+    func hideInstructionLabel() {
+        instructionLabel.zPosition = -200
+    }
+    
+    func hideStoryLabel() {
+        storyLabel.zPosition = -230
+    }
+    
     func makeInstructionFlash() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             self.instructionLabel.zPosition = -10
@@ -37,7 +45,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func setupInstructionLabel() {
-        instructionLabel.text = "Tap to continue"
+        instructionLabel.text = "Tap the screen to continue"
         instructionLabel.position = (CGPoint(x: 1920/2, y: 20))
         instructionLabel.zPosition = 5
         instructionLabel.fontColor = .black
@@ -61,6 +69,33 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func updateStoryLabel(newText: String){
         storyLabel.text = newText
         storyLabelBGColor.size = CGSize(width: storyLabel.frame.size.width + 50, height: storyLabel.frame.size.height + 25)
+    }
+    
+    func removeEggs() {
+        for node in children {
+            if node.name == "normalEgg" {
+                node.removeFromParent()
+            }
+        }
+    }
+    
+    func spawnEggs() {
+        var xPosition = 620.0
+        let yPosition = -30.0
+        for i in 1...5 {
+            if (i != 3){
+            let normalEgg = SKSpriteNode(imageNamed: "Normal-egg")
+            normalEgg.zPosition = 3
+            normalEgg.name = "normalEgg"
+            normalEgg.physicsBody = SKPhysicsBody(texture: normalEgg.texture!, size: normalEgg.size)
+            normalEgg.physicsBody?.affectedByGravity = false
+            normalEgg.position.x = xPosition
+            normalEgg.position.y = yPosition
+            normalEgg.scale(to: CGSize(width: 300, height: 200))
+            addChild(normalEgg)
+        } 
+             xPosition += 190
+        }
     }
 
     func spawnCans(){
@@ -118,6 +153,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         egg.position.x = 1920/2
         egg.position.y = 240/2
         egg.scale(to: CGSize(width: 190, height: 150))
+        //egg.physicsBody = SKPhysicsBody(texture: egg.texture!, size: egg.size)
         addChild(egg)
     }
     
@@ -198,12 +234,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 canArray.removeFirst()
                 print("can removed")
             } 
-        }else if (canArray.isEmpty && gameScene == 0){ //There are no cans left
+        } else if (canArray.isEmpty && gameScene == 0){ //There are no cans left
             addEgg()
             zoomInCamera()
             updateStoryLabel(newText: "There was a lonely, lovely egg")
             gameScene = gameScene+1
             triggerSimpleHaptic()
+            hideInstructionLabel()
         } else if(gameScene == 1){
             triggerSimpleHaptic()
             updateStoryLabel(newText: "It was forged in love")
@@ -211,13 +248,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             gameScene = gameScene+1
             triggerSimpleHaptic()
         } else if(gameScene == 2){
-            removeEgg()
             zoomCamera(amount: 0.7)
             updateStoryLabel(newText: "Different from every other egg, and meant for great things")
-            updateBackground(newBackground: "great")
+            updateBackground(newBackground: "background2")
+            spawnEggs()
             gameScene = gameScene+1
             triggerSimpleHaptic()
         } else if(gameScene == 3){
+            removeEggs()
              updateStoryLabel(newText: "Until one day, while the egg was growing brightly...")
              updateBackground(newBackground: "background2")
             gameScene = gameScene+1
@@ -242,14 +280,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             triggerSimpleHaptic()
         } else if(gameScene == 8){
             //Change view, time for ARKit
+            hideStoryLabel()
             isGameOver = true
             print("AR Kit")
             transitionToARView()
             gameScene = gameScene+1
         } else if(gameScene == 9){
             print("End of AR")
-             updateStoryLabel(newText: "Our world is suffering too. We have to do something!")
+             //updateStoryLabel(newText: "Our world is suffering too. We have to do something!")
              gameScene = gameScene+1
+            removeEgg()
+            updateBackground(newBackground: "penguin")
             triggerSimpleHaptic()
         } else if(gameScene == 10){
             
