@@ -173,6 +173,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             tappedNodes.first?.removeFromParent()
             if(!canArray.isEmpty) { //There are still some cans left
                  updateStoryLabel(newText: "Save it! Tap on the cans to remove them!")
+                triggerSimpleHaptic()
                 canArray.removeFirst()
                 print("can removed")
             } 
@@ -181,24 +182,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             zoomInCamera()
             updateStoryLabel(newText: "There was a lonely, lovely egg")
             gameScene = gameScene+1
+            triggerSimpleHaptic()
         } else if(gameScene == 1){
+            triggerSimpleHaptic()
             updateStoryLabel(newText: "It was forged in love")
             updateBackground(newBackground: "forged")
             gameScene = gameScene+1
+            triggerSimpleHaptic()
         } else if(gameScene == 2){
             removeEgg()
             zoomCamera(amount: 0.7)
             updateStoryLabel(newText: "Different from everyone else, and meant for great things")
             updateBackground(newBackground: "great")
             gameScene = gameScene+1
+            triggerSimpleHaptic()
         } else if(gameScene == 3){
              updateStoryLabel(newText: "Until one day, while the egg was growing brightly...")
              updateBackground(newBackground: "background2")
             gameScene = gameScene+1
+            triggerSimpleHaptic()
             zoomCamera(amount: 0.9)
         } else if(gameScene == 4){
             updateStoryLabel(newText: "Trash started to poison its home")
             zoomCamera(amount: 1.0)
+            triggerSimpleHaptic()
              gameScene = gameScene+1
             spawnCans()
         } else if (gameScene == 5){
@@ -206,10 +213,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if(canArray.isEmpty) {gameScene = gameScene+1}
         } else if(gameScene == 6 && canArray.isEmpty){
             updateStoryLabel(newText: "You saved this egg, but penguins are still suffering")
+            triggerSimpleHaptic()
             gameScene = gameScene+1
         } else if (gameScene == 7){
             updateStoryLabel(newText: "Look around you...")
             gameScene = gameScene+1
+            triggerSimpleHaptic()
         } else if(gameScene == 8){
             //Change view, time for ARKit
             isGameOver = true
@@ -220,9 +229,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             print("End of AR")
              updateStoryLabel(newText: "Our world is suffering too. We have to do something!")
              gameScene = gameScene+1
+            triggerSimpleHaptic()
         } else if(gameScene == 10){
             
         }
+    }
+    
+    func triggerSimpleHaptic() {
+        let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+        feedbackGenerator.prepare()
+        // Trigger the feedback after some game event
+        feedbackGenerator.impactOccurred()
     }
     
     func transitionToARView() {
