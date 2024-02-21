@@ -101,7 +101,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func spawnCans(){
         var xPosition = 220.0
         let yPosition = 140.0
-            for _ in 1...13 {
+            for _ in 1...12 {
                 let can = SKSpriteNode(imageNamed: "can")
                 can.zPosition = 3
                 can.position.x = xPosition
@@ -116,7 +116,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 //can.physicsBody?.collisionBitMask = 2
                 addChild(can)
                 canArray.append(can)
-                xPosition += 120
+                xPosition += 140
         }
     }
     
