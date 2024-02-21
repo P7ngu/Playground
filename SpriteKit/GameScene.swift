@@ -3,15 +3,15 @@ import GameplayKit
 import SwiftUI
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
-    var entities = [GKEntity]()
-    var graphs = [String : GKGraph]()
-    
-    var isGameOver = false
+    public var isGameOver = false
     
     private var lastUpdateTime : TimeInterval = 0
-    private var storyLabel = SKLabelNode(fontNamed: "Chalkduster")
+    
+    private var storyLabel = SKLabelNode(fontNamed: "ChalkboardSE-Regular")
+    private var instructionLabel = SKLabelNode(fontNamed: "ChalkboardSE-Regular ")
     private var storyLabelBGColor = SKSpriteNode()
-    private var spinnyNode : SKShapeNode?
+    private var instructionLabelBGColor = SKSpriteNode()
+
     private var canArray: [SKSpriteNode] = []
     private var gameScene = 0
     private var cameraNode: SKCameraNode = SKCameraNode()
@@ -24,6 +24,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addBackground()
         setupCamera()
         setupStoryLabel()
+        setupInstructionLabel()
+    }
+    
+    func makeInstructionFlash() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.instructionLabel.zPosition = -10
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.instructionLabel.zPosition = 10
+        }
+    }
+    
+    func setupInstructionLabel() {
+        instructionLabel.text = "Tap to continue"
+        instructionLabel.position = (CGPoint(x: 1920/2, y: 20))
+        instructionLabel.zPosition = 5
+        instructionLabel.fontColor = .black
+        instructionLabelBGColor = SKSpriteNode(color: UIColor.white, size: CGSize(width: instructionLabel.frame.size.width + 5, height: instructionLabel.frame.size.height + 25))
+        instructionLabelBGColor.zPosition = -1
+        instructionLabel.addChild(instructionLabelBGColor)
+        self.addChild(instructionLabel)
+
     }
     
     func setupStoryLabel() {
@@ -39,7 +61,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func updateStoryLabel(newText: String){
         storyLabel.text = newText
         storyLabelBGColor.size = CGSize(width: storyLabel.frame.size.width + 50, height: storyLabel.frame.size.height + 25)
-        
     }
 
     func spawnCans(){
@@ -192,7 +213,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         } else if(gameScene == 2){
             removeEgg()
             zoomCamera(amount: 0.7)
-            updateStoryLabel(newText: "Different from everyone else, and meant for great things")
+            updateStoryLabel(newText: "Different from every other egg, and meant for great things")
             updateBackground(newBackground: "great")
             gameScene = gameScene+1
             triggerSimpleHaptic()
@@ -285,12 +306,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         // Calculate time since last update
-        let dt = currentTime - self.lastUpdateTime
-        
-        // Update entities
-        for entity in self.entities {
-            entity.update(deltaTime: dt)
-        }
+        let _ = currentTime - self.lastUpdateTime
+
         
         self.lastUpdateTime = currentTime
     }

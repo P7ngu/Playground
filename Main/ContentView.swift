@@ -1,19 +1,18 @@
-//An app about poems and the environment
-//Created by Matteo Perotta - 9 Feb 2024
-//This app needs to be displayed on landscape mode, I tried to force it but Playground didn't like it!
+/*
+ An app about poems and the environment
+
+This app needs to be displayed on landscape mode, I tried to force it but Playground didn't like it.
+ 
+ 
+ */
 
 import SwiftUI
 import SpriteKit
 
 struct ContentView: View {
     
-    @State private var sceneKey = UUID() // Used to force-recreate the SpriteView
+    @State private var sceneKey = UUID() // Meant to be used to force-recreate the SpriteKit
     
-    @State public var isGameOver = false {
-        didSet{
-            restartScene()
-        }
-    }
     
     func restartScene(){
       /*  DispatchQueue.main.asyncAfter(deadline: .now()){
@@ -33,10 +32,6 @@ struct ContentView: View {
         .blue
     ]
     
-    func changeGameOverStatus() {
-        isGameOver.toggle()
-    }
-    
     // Initializing the Game Scene
     var gameScene: GameScene {
         print("The game is not over")
@@ -55,7 +50,7 @@ struct ContentView: View {
             } else {
                 MyARViewRepresentable()
                     .ignoresSafeArea()
-                    .overlay(alignment: .bottom) { }//To add some buttons 
+                    .overlay(alignment: .bottom) { }//To add some buttons if needed
                 ScrollView(.horizontal){
                     HStack{
                         Button{
@@ -82,12 +77,7 @@ struct ContentView: View {
                             }
                         }
                     }.padding()
-                } .onChange(of: isGameOver) { _ in
-                    if isGameOver {
-                        // Reset or change the game scene when the game is over
-                        self.sceneKey = UUID() // Change the key to force-recreate the SpriteView
-                    }
-                }
+                } 
                 
             }
         }
