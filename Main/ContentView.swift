@@ -35,18 +35,6 @@ struct ContentView: View {
                                 .background(.regularMaterial) //blurred effect
                                 .cornerRadius(16.0)
                         }
-                        
-                        ForEach(colors, id: \.self){ color in
-                            Button{
-                                ARManager.shared.actionStream.send(.placeBlock(color: color))
-                            } label: {
-                                color
-                                    .frame(width: 40, height: 40)
-                                    .padding()
-                                    .background(.regularMaterial) // blurred effect
-                                    .cornerRadius(16.0)
-                            }
-                        }
                     }.padding()
                 } 
         }

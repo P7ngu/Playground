@@ -307,7 +307,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             hideStoryLabel()
             isGameOver = true
             print("AR Kit")
-            //transitionToARView()
             presentSwiftUIView()
             gameScene = gameScene+1
         } else if(gameScene == 9){
