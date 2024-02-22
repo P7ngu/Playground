@@ -11,6 +11,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private var instructionLabel = SKLabelNode(fontNamed: "ChalkboardSE-Regular ")
     private var storyLabelBGColor = SKSpriteNode()
     private var instructionLabelBGColor = SKSpriteNode()
+    private var scoreLabel = SKLabelNode(fontNamed: "ChalkboardSE-Regular ")
+    
+    var score = 0 {
+        didSet{
+            scoreLabel.text = "Score: \(score)"
+        }
+    }
 
     private var canArray: [SKSpriteNode] = []
     private var gameScene = 0
@@ -42,6 +49,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             self.instructionLabel.zPosition = 10
         }
+    }
+    
+    func setupScoreLabel(){
+        scoreLabel.text = "Score: "
+        scoreLabel.zPosition = 15
+        scoreLabel.fontColor = .white
+        scoreLabel.position.x = 1920/5
+        scoreLabel.position.y = 400
+        addChild(scoreLabel)
+    }
+    
+    func updateScoreLabel(){
+        print("updating score label")
+        scoreLabel.text = "Score: \(score)"
+
     }
     
     func setupInstructionLabel() {
@@ -100,7 +122,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
     func spawnCans(){
         var xPosition = 220.0
-        let yPosition = 140.0
+        let yPosition = 100.0
             for _ in 1...12 {
                 let can = SKSpriteNode(imageNamed: "can")
                 can.zPosition = 3
@@ -141,7 +163,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             ground.physicsBody!.categoryBitMask = 2
             ground.zPosition = 1
             ground.scale(to: CGSize(width: 1920, height: 120))
-            ground.position = CGPoint(x: 1920/2, y: -250)
+            ground.position = CGPoint(x: 1920/2, y: -340)
             addChild(ground)
         }
         
@@ -227,6 +249,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let tappedNodes = nodes(at: location)
         print("tap")
         if tappedNodes.first?.name == "Can"{
+            score = score+1
+            updateScoreLabel()
             tappedNodes.first?.removeFromParent()
             if(!canArray.isEmpty) { //There are still some cans left
                  updateStoryLabel(newText: "Save it! Tap on the cans to remove them!")
@@ -293,7 +317,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             updateBackground(newBackground: "penguin")
             triggerSimpleHaptic()
         } else if(gameScene == 10){
+            print("Endgame starts now")
+            setupScoreLabel()
+            score = 0
             spawnCans()
+            gameScene = gameScene+1
+        } else if(gameScene == 11){
+            if(score % 12 == 0){
+                spawnCans()
+            }
         }
     }
     
