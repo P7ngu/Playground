@@ -9,47 +9,16 @@ This app needs to be displayed on landscape mode, I forced it but Playground did
  */
 
 import SwiftUI
-import SpriteKit
 
 struct ContentView: View {
-    
-    @State private var sceneKey = UUID() // Meant to be used to force-recreate the SpriteKit
-    
-    
-    func restartScene(){
-      /*  DispatchQueue.main.asyncAfter(deadline: .now()){
-            //new scene incoming
-            if let scene = GameScene(fileNamed: "GameScene"){
-                scene.scaleMode = .aspectFill
-                //let's present it immediately
-                self.view?.presentScene(scene)
-            }
-        }
-       */
-    }
-    
     @State private var colors: [Color] = [
         .green,
         .red,
         .blue
     ]
     
-    // Initializing the Game Scene
-    var gameScene: GameScene {
-        print("The game is not over")
-        let scene = GameScene(size: CGSize(width: 1920, height: 1080))
-        scene.scaleMode = .fill
-        //scene.gameViewController = GameViewController()
-        return scene
-    }
-    
     var body: some View {
         ZStack {
-            if(!gameScene.isGameOver){
-                SpriteView(scene: gameScene)
-                    .id(sceneKey) // Change the ID to recreate the view
-                    .ignoresSafeArea()
-            } else {
                 MyARViewRepresentable()
                     .ignoresSafeArea()
                     .overlay(alignment: .bottom) { } // To add some buttons if needed
@@ -80,8 +49,6 @@ struct ContentView: View {
                         }
                     }.padding()
                 } 
-                
-            }
         }
     }
 }

@@ -325,6 +325,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         } else if(gameScene == 11){
             if(score % 12 == 0){
                 spawnCans()
+                isGameOver.toggle()
+                gameScene = gameScene+1
             }
         }
     }
@@ -347,7 +349,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Present the AR view controller
         viewController.present(arViewController, animated: true, completion: nil)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
            arViewController.dismiss(animated: true, completion: nil)
         }
     }

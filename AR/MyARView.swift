@@ -7,7 +7,6 @@ class MyARView: ARView{
     required init(frame frameRect: CGRect) {
         super.init(frame: frameRect)
         addStaticImage()
-        
     }
     
     dynamic required init?(coder decoder: NSCoder){
@@ -25,7 +24,6 @@ class MyARView: ARView{
     private var cancellables: Set<AnyCancellable> = []
     
     func subscribeToActionStream() {
-        
         ARManager.shared
             .actionStream
             .sink { [weak self] action in
@@ -99,7 +97,6 @@ class MyARView: ARView{
         let imageEntity = ModelEntity(mesh: planeMesh, materials: [material])
         
         // 4. Position the entity in the world (or relative to an anchor)
-        // This example places the entity at the origin. You might want to adjust this based on your needs.
         let anchorEntity = AnchorEntity(world: .zero)
         anchorEntity.addChild(imageEntity)
         

@@ -1,9 +1,16 @@
 import UIKit
 import SpriteKit
 import ARKit
+import SwiftUI
 
 class MyARViewController: UIViewController {
     var arView: ARSCNView!
+    
+    @State private var colors: [Color] = [
+        .green,
+        .red,
+        .blue
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -14,12 +21,12 @@ class MyARViewController: UIViewController {
         let configuration = ARWorldTrackingConfiguration()
         arView.session.run(configuration)
         
-        // Setup the rest of your AR scene here
+        // Setup the rest of the AR scene 
+        
+
     }
     
     func dismissViewController() {
-        // Perform any cleanup or additional actions here
-        
         // Dismiss the view controller
         self.dismiss(animated: true, completion: nil)
     }
