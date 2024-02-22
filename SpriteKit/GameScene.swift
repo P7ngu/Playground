@@ -46,10 +46,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func setupInstructionLabel() {
         instructionLabel.text = "Tap the screen to continue"
-        instructionLabel.position = (CGPoint(x: 1920/2, y: 20))
+        instructionLabel.position = (CGPoint(x: 1920/8, y: 600))
         instructionLabel.zPosition = 5
-        instructionLabel.fontColor = .black
-        instructionLabelBGColor = SKSpriteNode(color: UIColor.white, size: CGSize(width: instructionLabel.frame.size.width + 5, height: instructionLabel.frame.size.height + 25))
+        instructionLabel.fontColor = .blue
+        instructionLabelBGColor = SKSpriteNode(color: UIColor.white, size: CGSize(width: instructionLabel.frame.size.width + 5, height: instructionLabel.frame.size.height + 15))
         instructionLabelBGColor.zPosition = -1
         instructionLabel.addChild(instructionLabelBGColor)
         self.addChild(instructionLabel)
@@ -237,7 +237,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         } else if (canArray.isEmpty && gameScene == 0){ //There are no cans left
             addEgg()
             zoomInCamera()
-            updateStoryLabel(newText: "There was a lonely, lovely egg")
+            updateStoryLabel(newText: "There was a lonely, lovely colorful egg")
             gameScene = gameScene+1
             triggerSimpleHaptic()
             hideInstructionLabel()
@@ -271,7 +271,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
              updateStoryLabel(newText: "Save it! Tap on the cans to remove them!")
             if(canArray.isEmpty) {gameScene = gameScene+1}
         } else if(gameScene == 6 && canArray.isEmpty){
-            updateStoryLabel(newText: "You saved this egg, but penguins are still suffering")
+            updateStoryLabel(newText: "You saved this one egg, but penguins are still suffering")
             triggerSimpleHaptic()
             gameScene = gameScene+1
         } else if (gameScene == 7){
@@ -293,7 +293,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             updateBackground(newBackground: "penguin")
             triggerSimpleHaptic()
         } else if(gameScene == 10){
-            
+            spawnCans()
         }
     }
     

@@ -1,7 +1,8 @@
 /*
  An app about poems and the environment
 
-This app needs to be displayed on landscape mode, I tried to force it but Playground didn't like it, _at all_.
+This app needs to be displayed on landscape mode, I forced it but Playground didn't like it, _at all_. So, dear human reading this, please use landscape mode.
+ 
  
  
  
