@@ -307,7 +307,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             hideStoryLabel()
             isGameOver = true
             print("AR Kit")
-            transitionToARView()
+            //transitionToARView()
+            presentSwiftUIView()
             gameScene = gameScene+1
         } else if(gameScene == 9){
             print("End of AR")
@@ -338,6 +339,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         feedbackGenerator.impactOccurred()
     }
     
+    func presentSwiftUIView() {
+        // Find the current view controller
+        if let viewController = self.view?.findViewController() {
+            // Create the SwiftUI view to present
+            let swiftUIView = ContentView()
+            // Wrap the SwiftUI view in a UIHostingController
+            let hostingController = UIHostingController(rootView: swiftUIView)
+            
+            // Present the view controller
+            viewController.present(hostingController, animated: true, completion: nil)
+        }
+    }
+
     func transitionToARView() {
         guard let skView = self.view, let viewController = skView.window?.rootViewController else {
             print("Could not find the view controller.")
@@ -389,6 +403,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
 
 
+}
+
+extension UIResponder {
+    func findViewController() -> UIViewController? {
+        if let nextResponder = self.next as? UIViewController {
+            return nextResponder
+        } else if let nextResponder = self.next {
+            return nextResponder.findViewController()
+        } else {
+            return nil
+        }
+    }
 }
 
 
