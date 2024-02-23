@@ -13,6 +13,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private var instructionLabelBGColor = SKSpriteNode()
     private var scoreLabel = SKLabelNode(fontNamed: "ChalkboardSE-Regular ")
     
+    private var music = SKAudioNode(fileNamed: "penguinsong.wav")
+    
     var score = 0 {
         didSet{
             scoreLabel.text = "Score: \(score)"
@@ -32,6 +34,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setupCamera()
         setupStoryLabel()
         setupInstructionLabel()
+        createMusic()
     }
     
     func hideInstructionLabel() {
@@ -92,6 +95,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         storyLabel.text = newText
         storyLabelBGColor.size = CGSize(width: storyLabel.frame.size.width + 50, height: storyLabel.frame.size.height + 25)
     }
+    
+    
+    func createMusic(){
+        music.name = "Music"
+        self.addChild(music)
+    }
+    
     
     func removeEggs() {
         for node in children {
@@ -309,9 +319,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             print("AR Kit")
             presentARView()
             gameScene = gameScene+1
+           
         } else if(gameScene == 9){
             print("End of AR")
-             //updateStoryLabel(newText: "Our world is suffering too. We have to do something!")
              gameScene = gameScene+1
             removeEgg()
             updateBackground(newBackground: "penguin")
@@ -324,6 +334,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             gameScene = gameScene+1
         } else if(gameScene == 11){
             if(score % 12 == 0){
+                //mini-game
                 spawnCans()
                 isGameOver.toggle()
                 gameScene = gameScene+1
@@ -351,12 +362,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    func dismissARView() {
-         let arViewController = MyARViewController()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-            arViewController.dismiss(animated: true, completion: nil)
-        }
-    }
 
 
     func updateBackground(newBackground: String){

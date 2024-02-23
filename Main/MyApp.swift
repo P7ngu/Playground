@@ -1,6 +1,7 @@
 import SwiftUI
 import SpriteKit
 
+
 @main
 struct MyApp: App {
     var gameScene: GameScene {
