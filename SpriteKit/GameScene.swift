@@ -9,14 +9,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private var lastUpdateTime : TimeInterval = 0
     
     private var storyLabel = SKLabelNode(fontNamed: "ChalkboardSE-Regular")
-    private var instructionLabel = SKLabelNode(fontNamed: "ChalkboardSE-Regular ")
+    private var instructionLabel = SKLabelNode(fontNamed: "ChalkboardSE-Regular")
     
     private var storyLabelBGColor = SKSpriteNode()
     private var instructionLabelBGColor = SKSpriteNode()
     
-    private var scoreLabel = SKLabelNode(fontNamed: "ChalkboardSE-Regular ")
+    private var scoreLabel = SKLabelNode(fontNamed: "ChalkboardSE-Regular")
     
-    private var soundEffect = SKAudioNode(fileNamed: "sound-efect.mp3")
+    private var soundEffect = SKAudioNode(fileNamed: "soundefect.m4a")
     
     var score = 0 {
         didSet{
@@ -37,12 +37,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setupCamera()
         setupStoryLabel()
         setupInstructionLabel()
-        playSound()
+        playSong()
     }
     
     var audioPlayer: AVAudioPlayer?
     
-    func playSound() {
+    func playSong() {
         guard let url = Bundle.main.url(forResource: "penguinsong", withExtension: "mp3") else { return }
         do {
             // Initialize the AVAudioPlayer instance
@@ -52,7 +52,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             // Prepare the audio player for playback by preloading its buffers.
             audioPlayer?.prepareToPlay()
             
-            // Play the sound
             audioPlayer?.play()
         } catch let error {
             // Handle the error
@@ -89,7 +88,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func updateScoreLabel(){
         print("updating score label")
         scoreLabel.text = "Score: \(score)"
-
     }
     
     func setupInstructionLabel() {
@@ -120,9 +118,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
-    func createMusic(){
-        soundEffect.name = "Music"
-        self.addChild(soundEffect)
+    func playSoundEffect(){
+        let playSoundAction = SKAction.playSoundFileNamed("soundeffect.aif", waitForCompletion: false)
+        self.run(playSoundAction)
     }
     
     
@@ -282,6 +280,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let tappedNodes = nodes(at: location)
         print("tap")
         if tappedNodes.first?.name == "Can"{
+            playSoundEffect()
             score = score+1
             updateScoreLabel()
             tappedNodes.first?.removeFromParent()
