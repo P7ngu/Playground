@@ -16,7 +16,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     private var scoreLabel = SKLabelNode(fontNamed: "ChalkboardSE-Regular ")
     
-    private var music = SKAudioNode(fileNamed: "penguinsong.mp3")
+    private var soundEffect = SKAudioNode(fileNamed: "sound-efect.mp3")
     
     var score = 0 {
         didSet{
@@ -37,14 +37,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setupCamera()
         setupStoryLabel()
         setupInstructionLabel()
-        createMusic()
+        playSound()
     }
     
     var audioPlayer: AVAudioPlayer?
     
     func playSound() {
         guard let url = Bundle.main.url(forResource: "penguinsong", withExtension: "mp3") else { return }
-        
         do {
             // Initialize the AVAudioPlayer instance
             audioPlayer = try AVAudioPlayer(contentsOf: url)
@@ -122,8 +121,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     func createMusic(){
-        music.name = "Music"
-        self.addChild(music)
+        soundEffect.name = "Music"
+        self.addChild(soundEffect)
     }
     
     
