@@ -26,7 +26,6 @@ class MyARViewController: UIViewController {
     }
     
     func dismissViewController() {
-        // Dismiss the view controller
         self.dismiss(animated: true, completion: nil)
     }
     
