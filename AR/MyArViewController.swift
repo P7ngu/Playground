@@ -18,10 +18,9 @@ class MyARViewController: UIViewController {
         arView = ARSCNView(frame: self.view.bounds)
         self.view.addSubview(arView)
         
+        //AR configuration
         let configuration = ARWorldTrackingConfiguration()
         arView.session.run(configuration)
-        
-        // Setup the rest of the AR scene 
         
 
     }

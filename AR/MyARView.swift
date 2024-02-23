@@ -48,7 +48,7 @@ class MyARView: ARView{
         //iPhone-centered
         let coordinateAnchor = AnchorEntity(world: .zero) 
         //Alternatives:
-        let _ = AnchorEntity(plane: .horizontal)
+        let secondAnchor = AnchorEntity(plane: .horizontal)
         
         let _ = AnchorEntity(.face)
         
@@ -58,14 +58,14 @@ class MyARView: ARView{
     }
     
     func entitySetup() {
-        //Here we can load entities from different places, usdz files, reality file, code, etc
+        //Load entities from different places: usdz files, reality file, code, etc
         let box = MeshResource.generateBox(size: 1)
         let entity2 = ModelEntity(mesh: box)
         
         //unused example
         let entity  = try? Entity.load(named: "penguin-portrait")
         
-        //We have to then add the entity to the scene
+        //add the entity to the scene
         let anchor = AnchorEntity()
         anchor.addChild(entity ?? entity2)
     }
@@ -105,7 +105,7 @@ class MyARView: ARView{
     func addImageOnWall() {
         // 1. Create a material with the image as a texture
         var material = UnlitMaterial()
-        if let texture = try? TextureResource.load(named: "melting") { // Replace "wallImage" with your image name
+        if let texture = try? TextureResource.load(named: "melting") { 
             material.baseColor = MaterialColorParameter.texture(texture)
         }
         // 2. Create a plane mesh with the desired size
@@ -121,8 +121,8 @@ class MyARView: ARView{
         anchorEntity.addChild(imageEntity)
         
         // 5. Position the imageEntity to simulate being on a wall
-        // Adjust these values to position the image on your desired wall location
-        imageEntity.position = SIMD3<Float>(0, 0, -0.5) // Example position
+        // Adjust these values to position the image wall
+        imageEntity.position = SIMD3<Float>(0, 0, -0.5)
         
         // 6. Add the anchor entity to the scene
         self.scene.addAnchor(anchorEntity)

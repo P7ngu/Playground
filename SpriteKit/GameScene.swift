@@ -334,7 +334,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func triggerSimpleHaptic() {
         let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
         feedbackGenerator.prepare()
-        // Trigger the feedback after some game event
+        // Trigger the feedback
         feedbackGenerator.impactOccurred()
     }
     
@@ -342,30 +342,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Find the current view controller
         if let viewController = self.view?.findViewController() {
             // Create the SwiftUI view to present
-            let swiftUIView = ContentView()
+            let view = ContentView()
             // Wrap the SwiftUI view in a UIHostingController
-            let hostingController = UIHostingController(rootView: swiftUIView)
+            let hostingController = UIHostingController(rootView: view)
             
             // Present the view controller
             viewController.present(hostingController, animated: true, completion: nil)
         }
     }
 
-    func transitionToARView() {
-        guard let skView = self.view, let viewController = skView.window?.rootViewController else {
-            print("Could not find the view controller.")
-            return
-        }
-        
-        let arViewController = MyARViewController()
-        
-        // Present the AR view controller
-        viewController.present(arViewController, animated: true, completion: nil)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-           arViewController.dismiss(animated: true, completion: nil)
-        }
-    }
 
     func updateBackground(newBackground: String){
         gradientBackground = SKSpriteNode(imageNamed: newBackground)
