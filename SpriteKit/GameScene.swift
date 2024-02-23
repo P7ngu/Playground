@@ -307,8 +307,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             hideStoryLabel()
             isGameOver = true
             print("AR Kit")
-            //transitionToARView()
-            presentSwiftUIView()
+            presentARView()
             gameScene = gameScene+1
         } else if(gameScene == 9){
             print("End of AR")
@@ -339,7 +338,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         feedbackGenerator.impactOccurred()
     }
     
-    func presentSwiftUIView() {
+    func presentARView() {
         // Find the current view controller
         if let viewController = self.view?.findViewController() {
             // Create the SwiftUI view to present
@@ -349,6 +348,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             // Present the view controller
             viewController.present(hostingController, animated: true, completion: nil)
+        }
+    }
+    
+    func dismissARView() {
+         let arViewController = MyARViewController()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            arViewController.dismiss(animated: true, completion: nil)
         }
     }
 

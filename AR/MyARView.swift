@@ -89,7 +89,7 @@ class MyARView: ARView{
         }
         
         // 2. Create a plane mesh with the desired size
-        let planeMesh = MeshResource.generatePlane(width: 0.2, depth: 0.35) // Adjust width and height as needed
+        let planeMesh = MeshResource.generatePlane(width: 0.35, depth: 0.35) // Adjust width and height as needed
         
         // 3. Create a model entity using the plane mesh and the material
         let imageEntity = ModelEntity(mesh: planeMesh, materials: [material])

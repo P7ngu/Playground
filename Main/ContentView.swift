@@ -26,6 +26,7 @@ struct ContentView: View {
                     HStack{
                         Button{
                             ARManager.shared.actionStream.send(.removeAllAnchors)
+                            
                         } label: {
                             Image(systemName: "trash")
                                 .resizable()
