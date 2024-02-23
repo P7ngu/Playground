@@ -1,6 +1,7 @@
 import SpriteKit
 import GameplayKit
 import SwiftUI
+import AVFoundation
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     public var isGameOver = false
@@ -9,11 +10,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     private var storyLabel = SKLabelNode(fontNamed: "ChalkboardSE-Regular")
     private var instructionLabel = SKLabelNode(fontNamed: "ChalkboardSE-Regular ")
+    
     private var storyLabelBGColor = SKSpriteNode()
     private var instructionLabelBGColor = SKSpriteNode()
+    
     private var scoreLabel = SKLabelNode(fontNamed: "ChalkboardSE-Regular ")
     
-    private var music = SKAudioNode(fileNamed: "penguinsong.wav")
+    private var music = SKAudioNode(fileNamed: "penguinsong.mp3")
     
     var score = 0 {
         didSet{
@@ -35,6 +38,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         setupStoryLabel()
         setupInstructionLabel()
         createMusic()
+    }
+    
+    var audioPlayer: AVAudioPlayer?
+    
+    func playSound() {
+        guard let url = Bundle.main.url(forResource: "penguinsong", withExtension: "mp3") else { return }
+        
+        do {
+            // Initialize the AVAudioPlayer instance
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
+            // Set the audio player to loop indefinitely
+            audioPlayer?.numberOfLoops = -1
+            // Prepare the audio player for playback by preloading its buffers.
+            audioPlayer?.prepareToPlay()
+            
+            // Play the sound
+            audioPlayer?.play()
+        } catch let error {
+            // Handle the error
+            print("Could not load the file: \(error.localizedDescription)")
+        }
     }
     
     func hideInstructionLabel() {
@@ -70,11 +94,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func setupInstructionLabel() {
-        instructionLabel.text = "Tap the screen to continue"
-        instructionLabel.position = (CGPoint(x: 1920/8, y: 600))
+        instructionLabel.text = "Tap on the screen to continue"
+        instructionLabel.position = (CGPoint(x: 1920/2, y: 1080/10))
         instructionLabel.zPosition = 5
-        instructionLabel.fontColor = .blue
-        instructionLabelBGColor = SKSpriteNode(color: UIColor.white, size: CGSize(width: instructionLabel.frame.size.width + 5, height: instructionLabel.frame.size.height + 15))
+        instructionLabel.fontColor = .black
+        instructionLabelBGColor = SKSpriteNode(color: UIColor.white, size: CGSize(width: instructionLabel.frame.size.width + 25, height: instructionLabel.frame.size.height + 25))
         instructionLabelBGColor.zPosition = -1
         instructionLabel.addChild(instructionLabelBGColor)
         self.addChild(instructionLabel)
