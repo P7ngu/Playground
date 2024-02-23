@@ -14,11 +14,10 @@ class MyARView: ARView{
     }
     
     convenience init() {
-        
         self.init(frame: UIScreen.main.bounds)
-        
         subscribeToActionStream()
         addStaticImage()
+        addImageOnWall()
     }
     
     private var cancellables: Set<AnyCancellable> = []
@@ -83,7 +82,6 @@ class MyARView: ARView{
     }
     
     func addStaticImage() {
-        print("added penguin AR")
         // 1. Create a material with the image as a texture
         var material = UnlitMaterial()
         if let texture = try? TextureResource.load(named: "penguin") { 
@@ -103,5 +101,32 @@ class MyARView: ARView{
         // 5. Add the anchor entity to the scene
         self.scene.addAnchor(anchorEntity)
     }
+    
+    func addImageOnWall() {
+        // 1. Create a material with the image as a texture
+        var material = UnlitMaterial()
+        if let texture = try? TextureResource.load(named: "melting") { // Replace "wallImage" with your image name
+            material.baseColor = MaterialColorParameter.texture(texture)
+        }
+        // 2. Create a plane mesh with the desired size
+        let planeMesh = MeshResource.generatePlane(width: 0.2, height: 0.35) // Adjust width and height as needed for the wall
+        
+        // 3. Create a model entity using the plane mesh and the material
+        let imageEntity = ModelEntity(mesh: planeMesh, materials: [material])
+        
+        // 4. Position the entity in the world (or relative to an anchor) - make it vertical
+        let anchorEntity = AnchorEntity(world: .zero)
+        // Adjust the orientation to make the plane vertical
+        imageEntity.orientation = simd_quatf(angle: .pi / 2, axis: [1, 0, 0]) // Rotate 90 degrees around the X-axis to make it vertical
+        anchorEntity.addChild(imageEntity)
+        
+        // 5. Position the imageEntity to simulate being on a wall
+        // Adjust these values to position the image on your desired wall location
+        imageEntity.position = SIMD3<Float>(0, 0, -0.5) // Example position
+        
+        // 6. Add the anchor entity to the scene
+        self.scene.addAnchor(anchorEntity)
+    }
+
 
 }
