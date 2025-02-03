@@ -3,19 +3,11 @@
 
 This app should be displayed on landscape mode, I forced it but Playground didn't like it, _at all_. So, dear human reading this, please use landscape mode in order to enjoy the assets!
  
- 
- 
- 
  */
 
 import SwiftUI
 
 struct ContentView: View {
-    @State private var colors: [Color] = [
-        .green,
-        .red,
-        .blue
-    ]
     
     var body: some View {
         ZStack {
