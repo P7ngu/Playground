@@ -13,7 +13,10 @@ struct MyApp: App {
     
     var body: some Scene {
         WindowGroup {
-          SpriteView(scene: gameScene)
+            HStack{
+                SpriteView(scene: gameScene)
+                SpriteView(scene: GameScene_old(size: CGSize(width: 1920, height: 1080)))
+            }
         }
     }
 }
