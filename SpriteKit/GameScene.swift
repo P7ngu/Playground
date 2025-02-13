@@ -103,7 +103,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func setupStoryLabel() {
-        storyLabel.text = "Once upon a time..."
+        storyLabel.text = "Used to have a lot to say..."
         storyLabel.fontColor = UIColor.black
         storyLabel.position = (CGPoint(x:1920/2,  y:200))
         storyLabelBGColor = SKSpriteNode(color: UIColor.white, size: CGSize(width: storyLabel.frame.size.width + 50, height: storyLabel.frame.size.height + 25))
@@ -293,38 +293,38 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         } else if (canArray.isEmpty && gameScene == 0){ //There are no cans left
             addEgg()
             zoomInCamera()
-            updateStoryLabel(newText: "There was a lonely, lovely colorful egg")
+            updateStoryLabel(newText: "Used to have lot to cry for, used to being on my own")
             gameScene = gameScene+1
             triggerSimpleHaptic()
             hideInstructionLabel()
         } else if(gameScene == 1){
             triggerSimpleHaptic()
-            updateStoryLabel(newText: "It was forged in love")
+            updateStoryLabel(newText: "Help! The ice is melting I need a bridge!")
             updateBackground(newBackground: "forged")
             gameScene = gameScene+1
             triggerSimpleHaptic()
         } else if(gameScene == 2){
             zoomCamera(amount: 0.7)
-            updateStoryLabel(newText: "Different from every other egg, and meant for great things")
+            updateStoryLabel(newText: "It gets so easier when you share your path")
             updateBackground(newBackground: "background2")
             spawnEggs()
             gameScene = gameScene+1
             triggerSimpleHaptic()
         } else if(gameScene == 3){
             removeEggs()
-             updateStoryLabel(newText: "Until one day, while the egg was growing brightly...")
+             updateStoryLabel(newText: "Help me destroy this trash!")
              updateBackground(newBackground: "background2")
             gameScene = gameScene+1
             triggerSimpleHaptic()
             zoomCamera(amount: 0.9)
         } else if(gameScene == 4){
-            updateStoryLabel(newText: "Trash started to poison its home")
+            updateStoryLabel(newText: "The ice is melting, but this time I'm not alone")
             zoomCamera(amount: 1.0)
             triggerSimpleHaptic()
              gameScene = gameScene+1
             spawnCans()
         } else if (gameScene == 5){
-             updateStoryLabel(newText: "Save it! Tap on the cans to remove them!")
+             updateStoryLabel(newText: "Help me get back home!")
             if(canArray.isEmpty) {gameScene = gameScene+1}
         } else if(gameScene == 6 && canArray.isEmpty){
             updateStoryLabel(newText: "You saved this one egg, but penguins are still suffering")
@@ -372,16 +372,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func presentARView() {
-        // Find the current view controller
-        if let viewController = self.view?.findViewController() {
-            // Create the SwiftUI view to present
-            let view = ContentView()
-            // Wrap the SwiftUI view in a UIHostingController
-            let hostingController = UIHostingController(rootView: view)
-            
-            // Present the view controller
-            viewController.present(hostingController, animated: true, completion: nil)
-        }
+      
     }
     
 
@@ -421,18 +412,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
 
 
-}
-
-extension UIResponder {
-    func findViewController() -> UIViewController? {
-        if let nextResponder = self.next as? UIViewController {
-            return nextResponder
-        } else if let nextResponder = self.next {
-            return nextResponder.findViewController()
-        } else {
-            return nil
-        }
-    }
 }
 
 
