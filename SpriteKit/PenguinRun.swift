@@ -9,8 +9,8 @@ import SpriteKit
 import GameplayKit
 import SwiftUI
 
-class GameScene: SKScene, @preconcurrency SKPhysicsContactDelegate {
-    @AppStorage("bestscore", store: UserDefaults(suiteName: "group.matteo.perotta.penguin-run")) var bestScore = 0 {
+class GameScene_1: SKScene, @preconcurrency SKPhysicsContactDelegate {
+    @AppStorage("bestscore", store: UserDefaults(suiteName: "group.matteo.perotta.penguintale2")) var bestScore = 0 {
         didSet{
             updateBestScoreLabel()
         }
@@ -109,7 +109,6 @@ class GameScene: SKScene, @preconcurrency SKPhysicsContactDelegate {
         bestScoreLabel.text = "HIGHEST: \(bestScore)"
         bestScoreLabel.zPosition = 5
         bestScoreLabel.fontColor = .black
-        //bestScoreLabel.fontColor = UIColor(named: "ThatYellow")
         updateBestScoreLabel()
         addChild(bestScoreLabel)
     }
@@ -160,17 +159,8 @@ class GameScene: SKScene, @preconcurrency SKPhysicsContactDelegate {
         scoreLabel.position.x = (camera?.position.x)! + 250
     }
     
-    func checkFonts(){
-        for name in UIFont.familyNames {
-            print(name)
-            if let nameString = name as? String {
-                print(UIFont.fontNames(forFamilyName: nameString))
-            }
-        }
-    }
     
     func createScore(){
-        //checkFonts()
         scoreLabel.zPosition = 3
         scoreLabel.fontColor = .black
         updateScoreLabelPosition()
@@ -178,7 +168,6 @@ class GameScene: SKScene, @preconcurrency SKPhysicsContactDelegate {
         addChild(scoreLabel)
         
     }
-    
     
     
     func createBG(){
